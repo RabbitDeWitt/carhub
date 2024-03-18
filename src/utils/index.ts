@@ -1,28 +1,10 @@
-import { Car } from "@/types";
+import { Car, FilterProps } from "@/types";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 interface ResponseCarsAPI {
   cars: Array<Car>,
   message: string
-}
-
-export const fetchCars = async (manufacturer: string): Promise<ResponseCarsAPI> => {
-  const url = 'https://cars-by-api-ninjas.p.rapidapi.com/v1/cars'
-  const options = {
-    method: 'GET',
-    params: { make: manufacturer },
-    headers: {
-      'X-RapidAPI-Key': '7df9b79d3fmsh7a12bd75f217c87p1ec50ajsn092588980be5',
-      'X-RapidAPI-Host': 'cars-by-api-ninjas.p.rapidapi.com'
-    }
-  }
-
-  const res = await axios.get(url, options)
-
-  const numberOfCars = res.data.length
-
-  const message = numberOfCars === 0 ? 'No cars found' : `We found ${numberOfCars} car(s)`
-  return { cars: [...res.data], message: message }
 }
 
 export const calculateCarRent = (city_mpg: number, year: number) => {
@@ -39,6 +21,54 @@ export const calculateCarRent = (city_mpg: number, year: number) => {
 
   return rentalRatePerDay.toFixed(0);
 };
+
+export const fetchCars = async (filters: FilterProps): Promise<ResponseCarsAPI> => {
+  const url = 'https://cars-by-api-ninjas.p.rapidapi.com/v1/cars'
+  const { manufacturer, model, fuel, limit, year } = filters
+
+  const options = {
+    method: 'GET',
+    params: {
+      make: manufacturer,
+      model: model,
+      fuel: fuel,
+      limit: limit,
+      year: year
+    },
+    headers: {
+      'X-RapidAPI-Key': process.env.NEXT_PUBLIC_RAPID_API_KEY || '',
+      'X-RapidAPI-Host': 'cars-by-api-ninjas.p.rapidapi.com'
+    }
+  }
+
+  const res = await axios.get(url, options)
+
+  const numberOfCars = res.data.length
+
+  const message = numberOfCars === 0 ? 'No cars found' : `We found ${numberOfCars} car(s)`
+  return { cars: [...res.data], message: message }
+}
+
+export const updateSearchParams = (model: string, manufacturer: string): string => {
+  const searchParams = new URLSearchParams(window.location.search)
+
+  if (model) {
+    searchParams.set('model', model)
+  } else {
+    searchParams.delete('model')
+  }
+
+  if (manufacturer) {
+    searchParams.set('manufacturer', manufacturer)
+  } else {
+    searchParams.delete('manufacturer')
+  }
+
+  const newPathname = `${window.location.pathname}?${searchParams.toString()}`
+
+  return newPathname
+}
+
 
 export const generateCarImageUrl = (car: Car, angle?: string) => {
   const url = new URL("https://cdn.imagin.studio/getimage");

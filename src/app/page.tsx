@@ -1,13 +1,18 @@
-
-
 import { CarCard, CustomFilter, Hero, SearchBar } from "@/components";
+import { HomeProps } from "@/types";
 import { fetchCars } from "@/utils";
 
-export default async function Home() {
-  const { cars, message } = await fetchCars('toyota')
+export default async function Home({ searchParams }: HomeProps) {
+  const { cars, message } = await fetchCars({
+    manufacturer: searchParams.manufacturer || '',
+    year: searchParams.year || 2022,
+    fuel: searchParams.fuel || '',
+    limit: searchParams.limit || 12,
+    model: searchParams.model || ''
+  })
   console.log(cars)
 
-  const isDataEmpty = cars.length === 0
+  const isDataEmpty = cars.length < 1
   return (
     <main className="overflow-hidden">
       <Hero />
@@ -32,9 +37,9 @@ export default async function Home() {
         {!isDataEmpty ? (
           <section>
             <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full gap-8 pt-14">
-              {cars.map(car => (
+              {cars.map((car, i) => (
                 <CarCard
-                  key={car.model}
+                  key={car.model + i}
                   car={car}
                 />
               ))}
