@@ -1,6 +1,13 @@
-import { CustomFilter, Hero, SearchBar } from "@/components";
 
-export default function Home() {
+
+import { CarCard, CustomFilter, Hero, SearchBar } from "@/components";
+import { fetchCars } from "@/utils";
+
+export default async function Home() {
+  const { cars, message } = await fetchCars('bmw')
+  console.log(cars)
+
+  const isDataEmpty = cars.length === 0
   return (
     <main className="overflow-hidden">
       <Hero />
@@ -12,16 +19,35 @@ export default function Home() {
           <p>
             Explore out cars you might like
           </p>
+        </div>
 
-          <div className="mt-12 w-full flex-between items-center flex-wrap gap-5">
-            <SearchBar />
-            <div className="flex justify-start flex-wrap items-center gap-2">
-              <CustomFilter title="fuel" />
-              <CustomFilter title="year" />
-            </div>
+        <div className="mt-12 w-full flex-between items-center flex-wrap gap-5">
+          <SearchBar />
+          <div className="flex justify-start flex-wrap items-center gap-2">
+            <CustomFilter title="fuel" />
+            <CustomFilter title="year" />
           </div>
         </div>
+
+        {!isDataEmpty ? (
+          <section>
+            <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full gap-8 pt-14">
+              {cars.map(car => (
+                <CarCard
+                  key={car.model}
+                  car={car}
+                />
+              ))}
+            </div>
+          </section>
+        ) : (
+          <div className="mt-16 flex justify-center items-center flex-col gap-2">
+            <h2 className="text-black text-xl font-bold">Oops, no results</h2>
+            <p>{message}</p>
+          </div>
+        )}
       </div>
+
     </main>
   );
 }

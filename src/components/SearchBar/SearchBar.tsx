@@ -1,10 +1,11 @@
 "use client"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import SearchManufacturer from "../SearchManufacturer/SearchManufacturer"
+import { fetchCars } from "@/utils"
 
 const SearchBar = () => {
   const [manufacturer, setManufacturer] = useState('')
-  useEffect(() => console.log(manufacturer), [manufacturer])
+
   return (
     <form
       className="flex items-center justify-start max-sm:flex-col w-full relative max-sm:gap-4 max-w-3xl"
