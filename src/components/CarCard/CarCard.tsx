@@ -4,7 +4,8 @@ import { useState } from "react"
 import { CarCardProps } from "@/types"
 import Image from "next/image"
 import Button from "../Button/Button"
-import { calculateCarRent } from "@/utils"
+import { calculateCarRent, generateCarImageUrl } from "@/utils"
+import CarDetails from "../CarDetails/CarDetails"
 
 const CarCard = ({ car }: CarCardProps) => {
   const {
@@ -40,7 +41,7 @@ const CarCard = ({ car }: CarCardProps) => {
 
       <div className="relative w-full h-40 my-3 object-contain">
         <Image
-          src="/hero.png"
+          src={generateCarImageUrl(car)}
           alt="Car model"
           fill
           priority
@@ -49,7 +50,7 @@ const CarCard = ({ car }: CarCardProps) => {
       </div>
 
       <div className="relative flex w-full mt-2">
-        <div className="flex group-hover:invisible w-full justify-between text-gray">
+        <div className="flex group-hover:invisible w-full justify-between text-grey">
 
           <div className="flex flex-col justify-center items-center gap-2">
             <Image
@@ -99,7 +100,11 @@ const CarCard = ({ car }: CarCardProps) => {
       </div>
 
 
-
+      <CarDetails
+        open={isOpen}
+        close={() => setIsOpen(false)}
+        car={car}
+      />
     </div>
   )
 }

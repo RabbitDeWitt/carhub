@@ -37,3 +37,9 @@ export interface CustomFilterProps {
 export interface CarCardProps {
   car: Car
 }
+
+export interface CarDetailsProps {
+  open: boolean,
+  close: () => void,
+  car: Car
+}

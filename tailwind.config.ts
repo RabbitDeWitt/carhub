@@ -9,7 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-        'hero-bg': "url('/hero-bg.png')"
+        'hero-bg': "url('/hero-bg.png')",
+        'pattern': "url('/pattern.png')",
       },
       colors: {
         "primary-blue": {
@@ -17,6 +18,7 @@ const config: Config = {
           100: "#F5F8FF",
         },
         "black-100": "#2B2C35",
+        grey: "#747A88",
       },
     }
   },
