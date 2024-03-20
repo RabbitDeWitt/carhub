@@ -11,7 +11,7 @@ const ShowMoreButton = ({ page, hasNextPage }: ShowMoreButtonProps) => {
   const handleNavigation = () => {
     const newLimit = (page + 1) * 10
     const params = updateSearchParamsByFuelAndYear('limit', `${newLimit}`)
-    router.push(params)
+    router.push(params, { scroll: false })
   }
 
   return (

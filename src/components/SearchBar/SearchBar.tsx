@@ -34,7 +34,7 @@ const SearchBar = () => {
     }
 
     const searchParams = updateSearchParams(model.toLowerCase(), manufacturer.toLowerCase())
-    router.push(searchParams)
+    router.push(searchParams, { scroll: false })
   }
 
   return (

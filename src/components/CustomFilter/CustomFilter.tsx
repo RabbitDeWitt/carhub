@@ -14,7 +14,7 @@ const CustomFilter = ({ title, option }: CustomFilterProps) => {
   const handleUpdateParams = (option: { title: string, value: string }) => {
     const newPathName = updateSearchParamsByFuelAndYear(title, option.value.toLowerCase())
 
-    router.push(newPathName)
+    router.push(newPathName, { scroll: false })
   }
   return (
     <div className="w-fit">
