@@ -1,4 +1,4 @@
-import { CarCard, CustomFilter, Hero, SearchBar } from "@/components";
+import { CarCard, CustomFilter, Hero, SearchBar, ShowMoreButton } from "@/components";
 import { fuels, yearsOfProduction } from "@/constants";
 import { HomeProps } from "@/types";
 import { fetchCars } from "@/utils";
@@ -50,8 +50,13 @@ export default async function Home({ searchParams }: HomeProps) {
                   key={car.model + i}
                   car={car}
                 />
+
               ))}
             </div>
+            <ShowMoreButton
+              page={(searchParams.limit || 10) / 10}
+              hasNextPage={(searchParams.limit || 10) > cars.length}
+            />
           </section>
         ) : (
           <div className="mt-16 flex justify-center items-center flex-col gap-2">

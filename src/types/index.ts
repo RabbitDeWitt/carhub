@@ -61,3 +61,8 @@ export interface CarDetailsProps {
   close: () => void,
   car: Car
 }
+
+export interface ShowMoreButtonProps {
+  page: number,
+  hasNextPage: boolean,
+}

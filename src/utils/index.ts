@@ -31,7 +31,7 @@ export const fetchCars = async (filters: FilterProps): Promise<ResponseCarsAPI> 
     params: {
       make: manufacturer,
       model: model,
-      fuel: fuel,
+      fuel_type: fuel,
       limit: limit,
       year: year
     },
