@@ -1,4 +1,5 @@
 import { CarCard, CustomFilter, Hero, SearchBar } from "@/components";
+import { fuels, yearsOfProduction } from "@/constants";
 import { HomeProps } from "@/types";
 import { fetchCars } from "@/utils";
 
@@ -26,11 +27,18 @@ export default async function Home({ searchParams }: HomeProps) {
           </p>
         </div>
 
-        <div className="mt-12 w-full flex-between items-center flex-wrap gap-5">
+        <div className='mt-12 w-full flex justify-between items-center flex-wrap gap-5'>
           <SearchBar />
-          <div className="flex justify-start flex-wrap items-center gap-2">
-            <CustomFilter title="fuel" />
-            <CustomFilter title="year" />
+
+          <div className='flex justify-start flex-wrap items-center gap-2'>
+            <CustomFilter
+              title='fuel'
+              option={fuels}
+            />
+            <CustomFilter
+              title='year'
+              option={yearsOfProduction}
+            />
           </div>
         </div>
 

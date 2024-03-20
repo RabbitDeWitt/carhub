@@ -33,7 +33,8 @@ const SearchBar = () => {
       return alert('Please fill in the search bar')
     }
 
-    router.push(updateSearchParams(model.toLowerCase(), manufacturer.toLowerCase()))
+    const searchParams = updateSearchParams(model.toLowerCase(), manufacturer.toLowerCase())
+    router.push(searchParams)
   }
 
   return (

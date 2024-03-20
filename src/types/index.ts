@@ -15,6 +15,11 @@ export type Car = {
   year: number,
 }
 
+export type Option = {
+  title: string,
+  value: string
+}
+
 export interface HomeProps {
   searchParams: FilterProps;
 }
@@ -43,7 +48,8 @@ export interface SearchManufacturerProps {
 }
 
 export interface CustomFilterProps {
-  title: string
+  title: string,
+  option: Array<Option>
 }
 
 export interface CarCardProps {

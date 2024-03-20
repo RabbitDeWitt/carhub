@@ -64,8 +64,20 @@ export const updateSearchParams = (model: string, manufacturer: string): string 
     searchParams.delete('manufacturer')
   }
 
+
   const newPathname = `${window.location.pathname}?${searchParams.toString()}`
 
+  return newPathname
+}
+
+export const updateSearchParamsByFuelAndYear = (type: string, value: string): string => {
+  const searchParams = new URLSearchParams(window.location.search)
+  searchParams.set(type, value)
+  if (!value) {
+    searchParams.delete(type)
+  }
+
+  const newPathname = `${window.location.pathname}?${searchParams.toString()}`
   return newPathname
 }
 
